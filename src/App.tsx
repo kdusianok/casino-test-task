@@ -1,26 +1,32 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import Casino from './Casino'
+import './styles.css'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default function App() {
+    const {wheels, balls, isActive, playGame, stopGame} = Casino()
+
+    return (
+        <div className="App">
+            <div className="casino-balls">
+                Your balls: <span style={{ fontWeight: 'bold' }}>{balls}</span>
+            </div>
+            <div className="casino-bar">
+                {wheels.map((Item, key) => (
+                    <div className="casino-box" key={key}>
+                        <Item />
+                    </div>
+                ))}
+                <div>
+                    <div
+                        onClick={() => (!isActive ? playGame() : stopGame())}
+                        className={
+                            'casino-button ' + (!isActive ? 'play-game' : 'stop-game')
+                        }
+                    >
+                        {!isActive ? 'PLAY' : 'STOP'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
-
-export default App;
